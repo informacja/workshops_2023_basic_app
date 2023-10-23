@@ -7,6 +7,7 @@ class BookLoansController < ApplicationController
       if @book_loan.save
         LoanCreatedJob.perform_async(@book_loan.id)
         LoanCreatedJob.perform_at(@book_loan.due_date - 1.day)
+        Publishers::LoanBookPublisher.new(message: {message: "test"}).publish
         format.html { redirect_to book_url(book), notice: flash_notice }
         format.json { render :show, status: :created, location: @book_loan }
       else
