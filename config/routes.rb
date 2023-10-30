@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/books/search'
   resources :books
   resources :publishers
   resources :authors
@@ -19,4 +20,5 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root 'books#index'
   get '/book-requests', to: 'book_requests#index', as: 'book_requests'
+
 end
